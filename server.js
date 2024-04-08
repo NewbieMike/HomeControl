@@ -6,11 +6,11 @@ const app = express();
 const PORT = process.env.PORT || 3000; // Use the provided port or default to 3000
 
 // Serve static files from the React app build directory
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "client/build")));
 
 // Route all requests to the React app's index.html
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+  res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
 
 // Start the server
