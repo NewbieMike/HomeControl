@@ -3,6 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "start-silent": "run-p start > /dev/null",
+    "start:react": "react-scripts start",
+    "start-and-test": "run-p start-silent test ",
+    "build": "react-scripts build",
+    "server": "nodemon server/server.js",
+    "test": "react-scripts test --noStackTrace",
+    "test-all": "react-scripts test --watchAll=false --noStackTrace",
+    "test-related": "react-scripts test --watchAll=false --noStackTrace --findRelatedTests",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
