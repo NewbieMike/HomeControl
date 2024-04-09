@@ -2,22 +2,26 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import ErrorPage from "./page-404";
 import { MainLayout } from "./Layout/MainLayout/MainLayout";
+import { Home } from "./views/Home/Home";
+import { Weather } from "./views/Weather/Weather";
+
+import "./index.scss";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Home />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/testRoute",
-    element: <App />,
+    path: "/weather",
+    element: <Weather />,
     errorElement: <ErrorPage />,
   },
 ]);
