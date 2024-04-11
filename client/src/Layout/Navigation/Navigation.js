@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import logoApp from "../../media/HomeManage_transparent.png";
 export const Component = () => {
   const [active, setActive] = useState(
     window.location.href.split("/")[window.location.href.split("/").length - 1]
@@ -7,8 +8,9 @@ export const Component = () => {
   return (
     <nav className="navbar bg-body-tertiary fixed-top">
       <div className="container-fluid">
-        <a className="navbar-brand" href="/#">
-          Offcanvas navbar
+        <a className="navbar-brand d-flex align-items-center" href="/#">
+          <img src={logoApp} alt="app-logo" className="logo-nav" />
+          Home Manage
         </a>
         <button
           className="navbar-toggler"
@@ -28,7 +30,10 @@ export const Component = () => {
         >
           <div className="offcanvas-header">
             <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-              Select
+              <a className="navbar-brand d-flex align-items-center" href="/#">
+                <img src={logoApp} alt="app-logo" className="logo-nav" />
+                Home Manage
+              </a>
             </h5>
             <button
               type="button"
