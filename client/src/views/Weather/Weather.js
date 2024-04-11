@@ -1,9 +1,19 @@
 import { React, useState, useEffect } from "react";
+import "react-vis/dist/style.css";
+import {
+  XYPlot,
+  LineSeries,
+  HorizontalGridLines,
+  XAxis,
+  YAxis,
+} from "react-vis";
 import logoApp from "../../media/HomeManage_transparent.png";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./Weather.scss";
 export const Weather = () => {
   const [data, setData] = useState(null);
+  const [temperatureAvg, setTemperatureAvg] = useState(null);
+  const [weekDays, setWeekDays] = useState([]);
   useEffect(() => {
     fetch(
       "https://api.open-meteo.com/v1/forecast?latitude=50.04&longitude=20.01&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m"
@@ -13,6 +23,30 @@ export const Weather = () => {
       .catch((error) => console.error(error));
   }, []);
   console.log(data);
+  useEffect(() => {
+    const splitArray = (arrayTemp, arrayTime, chunkSize) => {
+      const result = [];
+      for (let i = 0; i < arrayTemp.length; i += chunkSize) {
+        const chunk = arrayTemp.slice(i, i + chunkSize);
+        const chunkDate = arrayTime.slice(i, i + chunkSize);
+        const sum = chunk.reduce((acc, val) => acc + val, 0);
+        result.push({
+          temp: sum / chunk.length,
+          date: chunkDate[0],
+          y: sum / chunk.length,
+          x: i / chunkSize,
+        });
+      }
+      setTemperatureAvg(result);
+      setWeekDays();
+    };
+    const chunkSize = 24;
+    const splitArrays = data
+      ? splitArray(data.hourly.temperature_2m, data.hourly.time, chunkSize)
+      : "";
+  }, [data]);
+
+  console.log(temperatureAvg);
   return (
     <div className="container weather-container">
       <div className="weather-content">
@@ -102,6 +136,30 @@ export const Weather = () => {
                 </>
               ))
             : "Loading..."}
+        </div>
+        <div className="weather-chart-container">
+          {data ? (
+            <XYPlot
+              width={600}
+              height={400}
+              //getX={temperatureAvg.map((d, index) => d.x[index])}
+            >
+              <HorizontalGridLines />
+              <LineSeries color="red" data={temperatureAvg} />
+              {/* <LineSeries
+                color="yellow"
+                data={[
+                  { x: 1, y: 15 },
+                  { x: 2, y: 5 },
+                  { x: 3, y: 1 },
+                ]}
+              /> */}
+              <XAxis title="Date" />
+              <YAxis title="Temp" />
+            </XYPlot>
+          ) : (
+            "Loading chart..."
+          )}
         </div>
       </div>
     </div>
