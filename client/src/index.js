@@ -10,6 +10,7 @@ import ErrorPage from "./page-404";
 import { MainLayout } from "./Layout/MainLayout/MainLayout";
 import { Home } from "./views/Home/Home";
 import { Weather } from "./views/Weather/Weather";
+import Settings from "./views/Settings/Settings";
 
 import "./index.scss";
 
@@ -22,6 +23,11 @@ const router = createBrowserRouter([
   {
     path: "/weather",
     element: <Weather />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/settings",
+    element: <Settings />,
     errorElement: <ErrorPage />,
   },
 ]);

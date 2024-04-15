@@ -1,6 +1,13 @@
 import React from "react";
 import "./Home.scss";
 export const Home = () => {
+  if (localStorage.getItem("settings") === null) {
+    const jsonSettings = {
+      latitude: "50.04",
+      longitude: "20.01",
+    };
+    localStorage.setItem("settings", JSON.stringify(jsonSettings));
+  }
   return (
     <div className="container">
       <div className="row h-100">

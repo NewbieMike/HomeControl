@@ -50,13 +50,15 @@ export const Weather = () => {
   return (
     <div className="container weather-container">
       <div className="weather-content">
-        <div className="section-titme fs-1 text-light">Weather Forecast</div>
+        <div className="section-title fs-1 text-light">Weather Forecast</div>
         <div className="temperature-card-container row">
           {data
             ? data.hourly.time.map((item, index) => (
                 <>
                   <div className="card col-1 m-1" key={item}>
-                    <img src={logoApp} className="card-img-top" alt="..." />
+                    <div className="w-100 d-flex  justify-content-center">
+                      <img src={logoApp} className="card-img-top" alt="..." />
+                    </div>
                     <div className="d-flex flex-column">
                       <span className="card-text w-100 row">
                         {item.split("T")[0]}
@@ -137,30 +139,21 @@ export const Weather = () => {
               ))
             : "Loading..."}
         </div>
-        <div className="weather-chart-container">
+        {/* <div className="weather-chart-container">
           {data ? (
             <XYPlot
               width={600}
               height={400}
-              //getX={temperatureAvg.map((d, index) => d.x[index])}
             >
               <HorizontalGridLines />
               <LineSeries color="red" data={temperatureAvg} />
-              {/* <LineSeries
-                color="yellow"
-                data={[
-                  { x: 1, y: 15 },
-                  { x: 2, y: 5 },
-                  { x: 3, y: 1 },
-                ]}
-              /> */}
               <XAxis title="Date" />
               <YAxis title="Temp" />
             </XYPlot>
           ) : (
             "Loading chart..."
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );
