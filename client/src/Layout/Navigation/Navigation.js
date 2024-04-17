@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+
+import Clock from "./Clock";
+
 import logoApp from "../../media/HomeManage_transparent.png";
+
 export const Component = () => {
   const [active, setActive] = useState(
     window.location.href.split("/")[window.location.href.split("/").length - 1]
   );
+
   return (
     <nav className="navbar bg-body-tertiary fixed-top">
       <div className="container-fluid">
@@ -12,6 +17,9 @@ export const Component = () => {
           <img src={logoApp} alt="app-logo" className="logo-nav" />
           Home Manage
         </a>
+        <div>
+          <Clock offset={localStorage.getItem("settings").timezone} />
+        </div>
         <button
           className="navbar-toggler"
           type="button"

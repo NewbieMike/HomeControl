@@ -5,6 +5,7 @@ export const Home = () => {
     const jsonSettings = {
       latitude: "50.04",
       longitude: "20.01",
+      timezone: "0",
     };
     localStorage.setItem("settings", JSON.stringify(jsonSettings));
   }

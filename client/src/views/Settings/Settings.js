@@ -1,7 +1,17 @@
 import { React, useState, useEffect } from "react";
+import { useTimezoneSelect, allTimezones } from "react-timezone-select";
 import "./Settings.scss";
 const Settings = () => {
   const [settings, setSettings] = useState("");
+
+  const labelStyle = "original";
+  const timezones = {
+    ...allTimezones,
+  };
+  const { options, parseTimezone } = useTimezoneSelect({
+    labelStyle,
+    timezones,
+  });
   useEffect(() => {
     console.log(JSON.parse(localStorage.getItem("settings")));
     const sett = JSON.parse(localStorage.getItem("settings"));
@@ -23,6 +33,7 @@ const Settings = () => {
     setTimeout(() => {
       document.getElementById("success-alert").classList.add("opacity-0");
     }, 3000);
+    window.location.reload();
   };
 
   return (
@@ -102,14 +113,21 @@ const Settings = () => {
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body">
-              <strong>This is the second item's accordion body.</strong> It is
-              hidden by default, until the collapse plugin adds the appropriate
-              classes that we use to style each element. These classes control
-              the overall appearance, as well as the showing and hiding via CSS
-              transitions. You can modify any of this with custom CSS or
-              overriding our default variables. It's also worth noting that just
-              about any HTML can go within the <code>.accordion-body</code>,
-              though the transition does limit overflow.
+              <div className="mt-2 mb-2 fw-bold">
+                Selected Timezone:{" "}
+                {JSON.parse(localStorage.getItem("settings")).timezone}
+              </div>
+              <select
+                className="form-select"
+                onChange={(e) => changeSettings(e, "timezone", e.target.value)}
+              >
+                {options.map((option) => (
+                  <option key={option.timezone} value={option.offset}>
+                    {console.log(option)}
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
