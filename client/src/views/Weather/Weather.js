@@ -15,14 +15,16 @@ export const Weather = () => {
   const [temperatureAvg, setTemperatureAvg] = useState(null);
   const [weekDays, setWeekDays] = useState([]);
   useEffect(() => {
+    const x = JSON.parse(localStorage.getItem("settings")).latitude;
+    const y = JSON.parse(localStorage.getItem("settings")).longitude;
     fetch(
-      "https://api.open-meteo.com/v1/forecast?latitude=50.04&longitude=20.01&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m"
+      `https://api.open-meteo.com/v1/forecast?latitude=${x}&longitude=${y}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m`
     )
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error));
   }, []);
-  console.log(data);
+
   useEffect(() => {
     const splitArray = (arrayTemp, arrayTime, chunkSize) => {
       const result = [];
@@ -46,7 +48,6 @@ export const Weather = () => {
       : "";
   }, [data]);
 
-  console.log(temperatureAvg);
   return (
     <div className="container weather-container">
       <div className="weather-content">

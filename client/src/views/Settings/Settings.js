@@ -17,7 +17,6 @@ const Settings = () => {
     const sett = JSON.parse(localStorage.getItem("settings"));
     setSettings(sett);
   }, []);
-  console.log(settings);
 
   const changeSettings = (event, setting, value) => {
     setSettings((prevState) => ({
