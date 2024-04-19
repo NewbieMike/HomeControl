@@ -18,7 +18,12 @@ export const Component = () => {
           Home Manage
         </a>
         <div>
-          <Clock offset={localStorage.getItem("settings").timezone} />
+          <Clock
+            offset={
+              JSON.parse(JSON.parse(localStorage.getItem("settings")).timezone)
+                .offset
+            }
+          />
         </div>
         <button
           className="navbar-toggler"

@@ -19,6 +19,7 @@ const Settings = () => {
   }, []);
 
   const changeSettings = (event, setting, value) => {
+    console.log(setting, JSON.parse(value));
     setSettings((prevState) => ({
       ...prevState,
       [setting]: value,
@@ -114,15 +115,27 @@ const Settings = () => {
             <div className="accordion-body">
               <div className="mt-2 mb-2 fw-bold">
                 Selected Timezone:{" "}
-                {JSON.parse(localStorage.getItem("settings")).timezone}
+                {
+                  JSON.parse(
+                    JSON.parse(localStorage.getItem("settings")).timezone
+                  ).label
+                }
               </div>
               <select
                 className="form-select"
                 onChange={(e) => changeSettings(e, "timezone", e.target.value)}
               >
                 {options.map((option) => (
-                  <option key={option.timezone} value={option.offset}>
-                    {console.log(option)}
+                  <option
+                    key={option.timezone}
+                    value={JSON.stringify(option)}
+                    selected={
+                      option ===
+                      JSON.parse(
+                        JSON.parse(localStorage.getItem("settings")).timezone
+                      )
+                    }
+                  >
                     {option.label}
                   </option>
                 ))}
